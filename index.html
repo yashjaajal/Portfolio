@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yash Jajal — Brand Strategist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Karla:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;
+  --surface:#111111;
+  --paper:#f2ede4;
+  --gold:#b8976a;
+  --gold-dim:rgba(184,151,106,.15);
+  --muted:rgba(242,237,228,.35);
+  --border:rgba(242,237,228,.07);
+  --pad:clamp(28px,5vw,72px);
+}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--paper);
+  font-family:'Karla',sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+  cursor:none;
+}
+/* grain */
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:.025;pointer-events:none;z-index:9000;
+}
+
+/* CURSOR */
+#c-dot{position:fixed;width:5px;height:5px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s}
+#c-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(184,151,106,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);will-change:left,top;transition:width .3s,height .3s,border-color .3s}
+.hov #c-dot{transform:translate(-50%,-50%) scale(0)}
+.hov #c-ring{width:56px;height:56px;border-color:var(--gold)}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:800;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:28px var(--pad);
+  border-bottom:1px solid transparent;
+  transition:border-color .4s,background .4s;
+}
+nav.scrolled{background:rgba(10,10,10,.92);border-color:var(--border);backdrop-filter:blur(12px)}
+.n-logo{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;letter-spacing:.12em;
+  color:var(--paper);text-decoration:none;
+  opacity:.5;transition:opacity .2s;
+}
+.n-logo:hover{opacity:1}
+.n-links{display:flex;gap:40px}
+.n-links a{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--paper);text-decoration:none;
+  opacity:.3;transition:opacity .2s,color .2s;
+}
+.n-links a:hover{opacity:1;color:var(--gold)}
+
+/* HERO */
+#hero{
+  position:relative;min-height:100vh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 var(--pad) clamp(48px,8vw,96px);
+  overflow:hidden;
+}
+#canvas3d{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero-c{position:relative;z-index:2}
+.hero-index{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:.2em;color:var(--gold);
+  margin-bottom:clamp(20px,3vw,36px);
+  display:flex;align-items:center;gap:14px;
+}
+.hero-index::before{content:'';display:block;width:32px;height:1px;background:var(--gold);opacity:.6}
+h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(56px,10vw,148px);
+  font-weight:300;
+  line-height:.9;letter-spacing:-.03em;
+  color:var(--paper);
+  margin-bottom:clamp(24px,4vw,56px);
+}
+h1 em{font-style:italic;color:var(--gold)}
+.hero-bottom{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:32px;
+}
+.hero-desc{
+  font-size:clamp(14px,1.4vw,17px);line-height:1.8;
+  color:var(--muted);max-width:380px;font-weight:300;
+}
+.hero-desc strong{color:var(--paper);font-weight:400}
+.cta-group{display:flex;flex-direction:column;align-items:flex-end;gap:12px;flex-shrink:0}
+.cta-primary{
+  display:inline-flex;align-items:center;gap:12px;
+  border:1px solid var(--gold);
+  color:var(--gold);text-decoration:none;
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  padding:16px 28px;
+  transition:background .25s,color .25s,gap .25s;
+}
+.cta-primary:hover{background:var(--gold);color:var(--bg);gap:20px}
+.cta-secondary{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  opacity:.5;transition:opacity .2s,color .2s;
+}
+.cta-secondary:hover{opacity:1;color:var(--gold)}
+.hero-scroll-hint{
+  position:absolute;right:var(--pad);top:50%;transform:translateY(-50%);
+  z-index:2;writing-mode:vertical-rl;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(242,237,228,.2);
+  display:flex;align-items:center;gap:14px;
+}
+.hero-scroll-hint::after{content:'';width:1px;height:56px;background:rgba(242,237,228,.1)}
+
+/* TICKER */
+.ticker{
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:14px 0;overflow:hidden;
+}
+.ticker-inner{
+  display:flex;white-space:nowrap;
+  animation:tick 28s linear infinite;
+}
+.ticker-inner span{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(242,237,228,.25);padding:0 28px;
+}
+.ticker-inner span.g{color:var(--gold);opacity:.6}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* SHARED */
+section{padding:clamp(72px,12vw,140px) var(--pad)}
+.s-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:clamp(32px,5vw,56px);
+  display:flex;align-items:center;gap:14px;
+  opacity:.8;
+}
+.s-tag::before{content:'';display:block;width:20px;height:1px;background:var(--gold)}
+h2.sh{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,6vw,82px);
+  font-weight:300;line-height:.95;letter-spacing:-.03em;
+  margin-bottom:clamp(48px,8vw,96px);
+}
+h2.sh em{font-style:italic;color:var(--gold)}
+
+/* PHILOSOPHY */
+#philosophy{border-bottom:1px solid var(--border)}
+.phil-grid{display:grid;grid-template-columns:1fr 1.8fr;gap:80px;align-items:start}
+.phil-left{}
+.phil-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(80px,12vw,160px);
+  font-weight:300;line-height:.85;letter-spacing:-.04em;
+  color:rgba(242,237,228,.04);
+  user-select:none;margin-top:-16px;
+}
+.phil-right{}
+.phil-statement{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(22px,3vw,38px);
+  font-weight:300;line-height:1.35;letter-spacing:-.01em;
+  color:var(--paper);
+  margin-bottom:36px;
+}
+.phil-statement em{font-style:italic;color:var(--gold)}
+.phil-body{
+  font-size:16px;line-height:1.85;
+  color:var(--muted);font-weight:300;
+  max-width:540px;margin-bottom:28px;
+}
+.phil-markers{
+  margin-top:48px;
+  display:flex;flex-direction:column;gap:0;
+  border-top:1px solid var(--border);
+}
+.marker{
+  display:flex;align-items:baseline;gap:20px;
+  padding:18px 0;
+  border-bottom:1px solid var(--border);
+  transition:padding-left .25s;
+  cursor:default;
+}
+.marker:hover{padding-left:8px}
+.marker-n{
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;color:var(--gold);
+  opacity:.5;min-width:28px;
+}
+.marker-text{
+  font-size:14px;color:var(--paper);font-weight:400;
+  letter-spacing:.01em;
+}
+.marker-sub{
+  margin-left:auto;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);opacity:.5;
+}
+
+/* SERVICES */
+#services{background:var(--surface);border-bottom:1px solid var(--border)}
+.svc-intro{
+  display:grid;grid-template-columns:1.2fr 1fr;
+  gap:80px;align-items:end;
+  margin-bottom:clamp(48px,8vw,96px);
+}
+.svc-intro-note{
+  font-size:15px;line-height:1.8;color:var(--muted);
+  font-weight:300;max-width:360px;
+  align-self:end;padding-bottom:8px;
+}
+.svc-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--border)}
+.svc-item{
+  display:grid;grid-template-columns:48px 1fr auto;
+  gap:28px;align-items:start;
+  padding:32px 0;border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+  transition:padding-left .3s;
+  cursor:default;
+}
+.svc-item::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:2px;background:var(--gold);
+  transform:scaleY(0);transform-origin:bottom;
+  transition:transform .35s ease;
+}
+.svc-item:hover::before{transform:scaleY(1)}
+.svc-item:hover{padding-left:16px}
+.svc-n{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--gold);opacity:.4;
+  padding-top:4px;
+}
+.svc-body{}
+.svc-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(22px,2.5vw,30px);
+  font-weight:300;letter-spacing:-.01em;
+  color:var(--paper);margin-bottom:10px;
+}
+.svc-desc{
+  font-size:14px;line-height:1.75;
+  color:var(--muted);max-width:480px;font-weight:300;
+}
+.svc-tags{
+  display:flex;flex-direction:column;align-items:flex-end;gap:6px;
+  padding-top:4px;
+}
+.svc-tag-item{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);opacity:.5;white-space:nowrap;
+}
+
+/* WORK */
+#work{border-bottom:1px solid var(--border)}
+.work-list{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--border)}
+.work-item{
+  display:grid;grid-template-columns:80px 1fr 340px;
+  gap:48px;align-items:start;
+  padding:48px 0;border-bottom:1px solid var(--border);
+  position:relative;
+  transition:background .2s;
+}
+.work-item:hover{background:rgba(184,151,106,.02)}
+.w-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;color:var(--gold);opacity:.35;
+  padding-top:6px;
+}
+.w-main{}
+.w-category{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);opacity:.6;margin-bottom:12px;
+}
+.w-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(24px,3vw,38px);
+  font-weight:300;letter-spacing:-.02em;
+  color:var(--paper);margin-bottom:16px;line-height:1.05;
+}
+.w-thinking{
+  font-size:14px;line-height:1.75;
+  color:var(--muted);font-weight:300;margin-bottom:20px;
+}
+.w-scope{display:flex;flex-wrap:wrap;gap:8px}
+.w-scope span{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:5px 10px;border:1px solid var(--border);
+  color:rgba(242,237,228,.3);
+  transition:border-color .2s,color .2s;
+}
+.w-scope span:hover{border-color:var(--gold);color:var(--gold)}
+.w-insight{
+  padding:28px;
+  border:1px solid var(--border);
+  background:rgba(184,151,106,.03);
+  align-self:start;
+}
+.w-insight-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--gold);opacity:.6;margin-bottom:14px;
+}
+.w-insight-text{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:17px;line-height:1.6;
+  color:rgba(242,237,228,.65);font-weight:300;
+}
+
+/* THINKING */
+#thinking{background:var(--surface);border-bottom:1px solid var(--border)}
+.thinking-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border)}
+.t-block{
+  padding:48px 40px;background:var(--surface);
+  transition:background .25s;
+  position:relative;overflow:hidden;
+  cursor:default;
+}
+.t-block:hover{background:#161616}
+.t-block::after{
+  content:attr(data-n);
+  position:absolute;right:28px;bottom:20px;
+  font-family:'Cormorant Garamond',serif;
+  font-size:80px;font-weight:300;font-style:italic;
+  color:rgba(242,237,228,.025);
+  line-height:1;pointer-events:none;
+  transition:color .25s;
+}
+.t-block:hover::after{color:rgba(184,151,106,.06)}
+.t-step{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold);opacity:.5;margin-bottom:20px;
+}
+.t-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(24px,2.5vw,34px);
+  font-weight:300;letter-spacing:-.02em;
+  color:var(--paper);margin-bottom:14px;
+}
+.t-body{font-size:14px;line-height:1.75;color:var(--muted);font-weight:300}
+
+/* STAND OUT */
+#standout{border-bottom:1px solid var(--border)}
+.so-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.so-left h2.sh{margin-bottom:24px}
+.so-left p{font-size:16px;line-height:1.8;color:var(--muted);font-weight:300;max-width:420px}
+.so-right{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--border)}
+.so-item{
+  padding:24px 0;border-bottom:1px solid var(--border);
+  display:flex;gap:20px;align-items:flex-start;
+  transition:padding-left .25s;cursor:default;
+}
+.so-item:hover{padding-left:10px}
+.so-icon{
+  width:28px;height:28px;border:1px solid var(--gold-dim);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-top:2px;
+}
+.so-icon svg{width:12px;height:12px;stroke:var(--gold);fill:none;stroke-width:1.5}
+.so-item-title{
+  font-size:15px;font-weight:400;color:var(--paper);
+  margin-bottom:5px;letter-spacing:.01em;
+}
+.so-item-body{font-size:13px;line-height:1.7;color:var(--muted);font-weight:300}
+
+/* CONTACT */
+#contact{}
+.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-left h2.sh{margin-bottom:20px}
+.contact-sub{font-size:16px;line-height:1.8;color:var(--muted);margin-bottom:40px;font-weight:300}
+.c-info{display:flex;flex-direction:column;gap:14px}
+.c-row{
+  display:flex;align-items:center;gap:12px;
+  font-size:13px;color:var(--muted);
+}
+.c-row strong{color:var(--paper);font-weight:400}
+.c-dot-live{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;animation:pulse 2.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(184,151,106,.5)}50%{opacity:.6;box-shadow:0 0 0 5px rgba(184,151,106,0)}}
+
+/* FORM */
+.form-wrap{border:1px solid var(--border)}
+.f-field{border-bottom:1px solid var(--border)}
+.f-field:last-of-type{border-bottom:none}
+.f-field label{
+  display:block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);opacity:.5;
+  padding:16px 20px 6px;
+}
+.f-field input,
+.f-field select,
+.f-field textarea{
+  display:block;width:100%;
+  padding:4px 20px 16px;
+  background:transparent;border:none;outline:none;
+  color:var(--paper);
+  font-family:'Karla',sans-serif;font-size:15px;font-weight:300;
+  resize:none;-webkit-appearance:none;appearance:none;
+}
+.f-field select option{background:var(--bg)}
+.f-field textarea{min-height:90px}
+.f-field:focus-within{background:rgba(184,151,106,.03)}
+.f-row-2{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
+.f-row-2 .f-field{border-bottom:none}
+.f-row-2 .f-field:first-child{border-right:1px solid var(--border)}
+.f-foot{
+  padding:20px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(184,151,106,.03);
+  border-top:1px solid var(--border);
+}
+.f-submit{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--gold);color:var(--bg);border:none;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.15em;text-transform:uppercase;
+  padding:14px 28px;cursor:pointer;
+  transition:background .2s,gap .2s;
+  font-weight:400;
+}
+.f-submit:hover{background:#cba97e;gap:16px}
+.f-note{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);opacity:.4;
+}
+.f-success{
+  display:none;
+  padding:20px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;letter-spacing:.12em;
+  color:var(--gold);
+}
+
+/* FOOTER */
+footer{
+  border-top:1px solid var(--border);
+  padding:28px var(--pad);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.f-l{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:300;letter-spacing:-.01em;
+  color:rgba(242,237,228,.3);
+}
+.f-l em{font-style:italic;color:var(--gold)}
+.f-r{
+  font-family:'JetBrains Mono',monospace;
+  font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(242,237,228,.2);
+}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.rv.in{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+@media(max-width:960px){
+  nav{padding:20px 24px}
+  #hero{padding:0 24px 48px}
+  .hero-bottom{flex-direction:column;align-items:flex-start;gap:28px}
+  .cta-group{align-items:flex-start}
+  section{padding:72px 24px}
+  .phil-grid,.svc-intro,.so-grid,.contact-wrap{grid-template-columns:1fr;gap:40px}
+  .phil-name{display:none}
+  .work-item{grid-template-columns:48px 1fr;gap:24px}
+  .w-insight{display:none}
+  .thinking-grid{grid-template-columns:1fr}
+  .f-row-2{grid-template-columns:1fr}
+  .f-row-2 .f-field:first-child{border-right:none;border-bottom:1px solid var(--border)}
+  footer{flex-direction:column;gap:12px;padding:24px;text-align:center}
+}
+</style>
+</head>
+<body>
+<div id="c-dot"></div>
+<div id="c-ring"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="n-logo">yash jajal</a>
+  <div class="n-links">
+    <a href="#philosophy">About</a>
+    <a href="#work">Work</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="canvas3d"></canvas>
+  <div class="hero-scroll-hint">Scroll</div>
+  <div class="hero-c">
+    <div class="hero-index">Brand Strategist &amp; Marketer — Mumbai</div>
+    <h1 id="h1main">I build the<br><em>thinking</em><br>behind brands.</h1>
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        <strong>Strategy. Content. Performance. Brand.</strong><br>
+        Not a campaign manager — a brand architect. I work at the intersection of culture, storytelling, and data to build brands that last.
+      </p>
+      <div class="cta-group">
+        <a href="#contact" class="cta-primary mag">Work with me →</a>
+        <a href="#work" class="cta-secondary">View selected work ↓</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span>Brand Strategy</span><span class="g">✦</span>
+    <span>Content Strategy</span><span class="g">✦</span>
+    <span>Performance Marketing</span><span class="g">✦</span>
+    <span>Brand Solutions</span><span class="g">✦</span>
+    <span>Cultural Marketing</span><span class="g">✦</span>
+    <span>Storytelling</span><span class="g">✦</span>
+    <span>Growth Strategy</span><span class="g">✦</span>
+    <span>Brand Architecture</span><span class="g">✦</span>
+    <span>Brand Strategy</span><span class="g">✦</span>
+    <span>Content Strategy</span><span class="g">✦</span>
+    <span>Performance Marketing</span><span class="g">✦</span>
+    <span>Brand Solutions</span><span class="g">✦</span>
+    <span>Cultural Marketing</span><span class="g">✦</span>
+    <span>Storytelling</span><span class="g">✦</span>
+    <span>Growth Strategy</span><span class="g">✦</span>
+    <span>Brand Architecture</span><span class="g">✦</span>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="s-tag rv">001 — Philosophy</div>
+  <div class="phil-grid">
+    <div class="phil-left rv">
+      <div class="phil-name">YJ</div>
+    </div>
+    <div class="phil-right rv d1">
+      <p class="phil-statement">
+        Most marketers optimise campaigns.<br>
+        I <em>architect the brand</em> the campaign lives inside.
+      </p>
+      <p class="phil-body">I'm Yash Jajal — a brand strategist and marketer who operates at a cultural level. My work spans brand strategy, content strategy, performance marketing, and brand solutions. What connects it all is a single belief: that the strongest brands are built on ideas, not just impressions.</p>
+      <p class="phil-body">I founded Marketing House to work directly with founders and global startups who want to build something that endures — not just something that converts this quarter. I combine storytelling instinct with data discipline. The output is always strategy-first, never channel-first.</p>
+      <div class="phil-markers">
+        <div class="marker rv d1">
+          <span class="marker-n">01</span>
+          <span class="marker-text">I think about brands at a cultural level, not just a channel level</span>
+          <span class="marker-sub">Positioning</span>
+        </div>
+        <div class="marker rv d2">
+          <span class="marker-n">02</span>
+          <span class="marker-text">I combine storytelling instinct with data discipline</span>
+          <span class="marker-sub">Approach</span>
+        </div>
+        <div class="marker rv d3">
+          <span class="marker-n">03</span>
+          <span class="marker-text">I built Marketing House from zero — solo, fast, zero bloat</span>
+          <span class="marker-sub">Foundation</span>
+        </div>
+        <div class="marker rv d4">
+          <span class="marker-n">04</span>
+          <span class="marker-text">I work with global startups, D2C brands, and founders</span>
+          <span class="marker-sub">Clients</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="s-tag rv">002 — Services</div>
+  <div class="svc-intro">
+    <h2 class="sh rv">What I<br><em>do.</em></h2>
+    <p class="svc-intro-note rv d1">Everything except content creation. I work upstream — on the strategy, the system, the thinking that makes content and campaigns worth building.</p>
+  </div>
+  <div class="svc-list rv">
+    <div class="svc-item">
+      <div class="svc-n">01</div>
+      <div class="svc-body">
+        <div class="svc-title">Brand Strategy &amp; Positioning</div>
+        <p class="svc-desc">Defining what a brand stands for, who it's for, and how it should sound, look, and behave across every touchpoint. From naming and positioning frameworks to full brand architecture and messaging systems.</p>
+      </div>
+      <div class="svc-tags">
+        <span class="svc-tag-item">Brand Architecture</span>
+        <span class="svc-tag-item">Positioning</span>
+        <span class="svc-tag-item">Messaging Systems</span>
+        <span class="svc-tag-item">GTM Strategy</span>
+      </div>
+    </div>
+    <div class="svc-item">
+      <div class="svc-n">02</div>
+      <div class="svc-body">
+        <div class="svc-title">Content Strategy &amp; Planning</div>
+        <p class="svc-desc">The thinking behind what to say, where, when, and why. Content calendars, pillar strategies, platform playbooks, and editorial frameworks — designed to build brand equity while driving performance.</p>
+      </div>
+      <div class="svc-tags">
+        <span class="svc-tag-item">Content Frameworks</span>
+        <span class="svc-tag-item">Platform Playbooks</span>
+        <span class="svc-tag-item">Editorial Strategy</span>
+        <span class="svc-tag-item">Content Calendars</span>
+      </div>
+    </div>
+    <div class="svc-item">
+      <div class="svc-n">03</div>
+      <div class="svc-body">
+        <div class="svc-title">Performance Marketing</div>
+        <p class="svc-desc">Paid campaigns built on strategic foundations, not just optimisation hacks. Google Ads architecture, Meta campaigns, full-funnel media planning, UTM tracking, and budget modelling tied to real business outcomes.</p>
+      </div>
+      <div class="svc-tags">
+        <span class="svc-tag-item">Google Ads</span>
+        <span class="svc-tag-item">Meta Ads</span>
+        <span class="svc-tag-item">Media Planning</span>
+        <span class="svc-tag-item">UTM &amp; GA4</span>
+      </div>
+    </div>
+    <div class="svc-item">
+      <div class="svc-n">04</div>
+      <div class="svc-body">
+        <div class="svc-title">Brand Solutions &amp; Partnerships</div>
+        <p class="svc-desc">Bespoke marketing solutions that sit between brand and business — sponsorships, co-brand strategies, influencer architecture, and integrated brand partnership models that build equity and revenue simultaneously.</p>
+      </div>
+      <div class="svc-tags">
+        <span class="svc-tag-item">Brand Partnerships</span>
+        <span class="svc-tag-item">Influencer Strategy</span>
+        <span class="svc-tag-item">Co-brand Models</span>
+        <span class="svc-tag-item">Integrated Campaigns</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="s-tag rv">003 — Selected Work</div>
+  <h2 class="sh rv">The <em>thinking</em><br>behind the work.</h2>
+  <div class="work-list">
+
+    <div class="work-item rv">
+      <div class="w-num">01</div>
+      <div class="w-main">
+        <div class="w-category">FMCG · Natural Sweetener · Brand Strategy</div>
+        <div class="w-title">Surasa SweetPro — Building a Premium Brand in a Commoditised Category</div>
+        <p class="w-thinking">The challenge wasn't the product — it was the category. Natural sweeteners are a sea of identical claims. The strategic work here was finding the cultural angle that made Surasa feel premium and trustworthy, then building a 3-month media architecture around that positioning. Budget allocation, CPM/CPC benchmarks, and ROAS targets were built into the plan before a single ad was written.</p>
+        <div class="w-scope">
+          <span>Brand Positioning</span><span>3-Month Media Plan</span><span>Budget Architecture</span><span>Performance KPIs</span><span>Audience Segmentation</span>
+        </div>
+      </div>
+      <div class="w-insight">
+        <div class="w-insight-label">The strategic insight</div>
+        <p class="w-insight-text">"Commoditised categories are won by the brand that owns the conversation — not the one that shouts loudest."</p>
+      </div>
+    </div>
+
+    <div class="work-item rv">
+      <div class="w-num">02</div>
+      <div class="w-main">
+        <div class="w-category">Fashion · Eyewear · Product Extension</div>
+        <div class="w-title">Ray-Ban Jackets — Extending Iconic Brand Equity into a New Category</div>
+        <p class="w-thinking">Brand extension is the highest-stakes move in marketing. The 7Ps framework was used not as a template but as a diagnostic tool — stress-testing where Ray-Ban's cultural currency would transfer, and where it wouldn't. The output was a full product and launch strategy designed to expand the brand without diluting it.</p>
+        <div class="w-scope">
+          <span>7Ps Framework</span><span>Brand Extension Strategy</span><span>Pricing Logic</span><span>Distribution Strategy</span><span>Launch Planning</span>
+        </div>
+      </div>
+      <div class="w-insight">
+        <div class="w-insight-label">The strategic insight</div>
+        <p class="w-insight-text">"Brand equity is transferable — but only to categories that share the same emotional territory."</p>
+      </div>
+    </div>
+
+    <div class="work-item rv">
+      <div class="w-num">03</div>
+      <div class="w-main">
+        <div class="w-category">Creative Campaign · Content Strategy · FMCG</div>
+        <div class="w-title">Asli Meetha — Using Cultural Tension as a Campaign Engine</div>
+        <p class="w-thinking">The "Asli Meetha" campaign was built on a simple cultural truth: Indian consumers are increasingly suspicious of artificial. Rather than positioning against competitors, the strategy created a narrative where authenticity itself becomes aspirational. The creative framework turned a product attribute into a cultural statement.</p>
+        <div class="w-scope">
+          <span>Campaign Concept</span><span>Narrative Strategy</span><span>Copy Direction</span><span>Cultural Insight</span><span>Content Framework</span>
+        </div>
+      </div>
+      <div class="w-insight">
+        <div class="w-insight-label">The strategic insight</div>
+        <p class="w-insight-text">"The strongest campaigns don't sell products. They sell a point of view on the world."</p>
+      </div>
+    </div>
+
+    <div class="work-item rv">
+      <div class="w-num">04</div>
+      <div class="w-main">
+        <div class="w-category">Performance Marketing · Google Ads · Architecture</div>
+        <div class="w-title">Google Ads Architecture — Building Campaigns That Scale</div>
+        <p class="w-thinking">Most Google Ads accounts are built to perform today, not to scale tomorrow. This engagement was about designing the architecture first: tiered keyword strategy targeting branded and competitor terms, match type framework, negative keyword layers, UTM infrastructure, and ad copy direction per intent cluster — all before a single rupee was spent.</p>
+        <div class="w-scope">
+          <span>Keyword Architecture</span><span>Competitor Targeting</span><span>UTM Infrastructure</span><span>Bidding Strategy</span><span>Campaign Structure</span>
+        </div>
+      </div>
+      <div class="w-insight">
+        <div class="w-insight-label">The strategic insight</div>
+        <p class="w-insight-text">"A campaign built on weak architecture will always hit a ceiling. Structure is the strategy."</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- THINKING / PROCESS -->
+<section id="thinking">
+  <div class="s-tag rv">004 — How I Think</div>
+  <h2 class="sh rv">The <em>process</em><br>behind the output.</h2>
+  <div class="thinking-grid rv">
+    <div class="t-block" data-n="01">
+      <div class="t-step">Step 01 — Diagnose</div>
+      <div class="t-title">Start with the real problem.</div>
+      <p class="t-body">Not the brief. Not the stated challenge. I dig into the brand, the category, the audience, and the competitive landscape before forming a single opinion. Most marketing problems are misdiagnosed — and strategies built on wrong diagnoses always fail.</p>
+    </div>
+    <div class="t-block" data-n="02">
+      <div class="t-step">Step 02 — Reframe</div>
+      <div class="t-title">Find the cultural angle.</div>
+      <p class="t-body">Every brand exists inside a culture. The best strategies find the tension, the truth, or the aspiration that makes a brand relevant beyond its product category. I look for the idea that makes the brand feel inevitable — not just logical.</p>
+    </div>
+    <div class="t-block" data-n="03">
+      <div class="t-step">Step 03 — Architect</div>
+      <div class="t-title">Build the system, not just the campaign.</div>
+      <p class="t-body">Strategy without structure is just opinion. I build frameworks — messaging hierarchies, content architectures, campaign systems, media models — that give the strategy a skeleton it can grow on. Everything is designed to scale.</p>
+    </div>
+    <div class="t-block" data-n="04">
+      <div class="t-step">Step 04 — Execute &amp; Compound</div>
+      <div class="t-title">Make the marketing compound.</div>
+      <p class="t-body">The goal is never a one-off. Every campaign should build on the last — brand equity stacking with performance data, each cycle generating more signal. I track, learn, refine, and use the intelligence of previous work to make the next round smarter.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STAND OUT -->
+<section id="standout">
+  <div class="s-tag rv">005 — The Difference</div>
+  <div class="so-grid">
+    <div class="so-left rv">
+      <h2 class="sh">Why <em>Yash Jajal</em><br>stands out.</h2>
+      <p>In a market full of campaign managers, I operate as a brand architect. The difference isn't the tactics — it's the level at which I engage with your brand. Cultural. Strategic. Built to last.</p>
+    </div>
+    <div class="so-right rv d1">
+      <div class="so-item">
+        <div class="so-icon"><svg viewBox="0 0 16 16"><path d="M8 2L14 8L8 14M2 8H14"/></svg></div>
+        <div>
+          <div class="so-item-title">Strategist first, executor second</div>
+          <p class="so-item-body">I don't just run campaigns — I design the thinking the campaign lives inside. Every output is rooted in a clear strategic rationale.</p>
+        </div>
+      </div>
+      <div class="so-item">
+        <div class="so-icon"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5"/><path d="M8 3V8L11 11"/></svg></div>
+        <div>
+          <div class="so-item-title">Cultural-level brand thinking</div>
+          <p class="so-item-body">I understand how brands operate inside culture — not just inside ad platforms. That's what makes the strategy feel true, not just smart.</p>
+        </div>
+      </div>
+      <div class="so-item">
+        <div class="so-icon"><svg viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="1"/><path d="M5 8H11M8 5V11"/></svg></div>
+        <div>
+          <div class="so-item-title">Storytelling instinct + data discipline</div>
+          <p class="so-item-body">Most strategists are one or the other. I bring both — the narrative instinct to make brands compelling and the analytical rigour to make them measurable.</p>
+        </div>
+      </div>
+      <div class="so-item">
+        <div class="so-icon"><svg viewBox="0 0 16 16"><path d="M2 14L8 2L14 14M5 10H11"/></svg></div>
+        <div>
+          <div class="so-item-title">Global thinking, zero agency bloat</div>
+          <p class="so-item-body">Mumbai-based, globally minded. Fast, direct, and unencumbered by the inefficiencies of a large agency. You work with me — the strategist — every time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-wrap">
+    <div class="rv">
+      <div class="s-tag">006 — Contact</div>
+      <h2 class="sh">Let's build<br>something <em>real.</em></h2>
+      <p class="contact-sub">If you're building a brand from scratch, repositioning something that's lost its edge, or looking for a strategic partner who will actually care about the outcome — let's talk.</p>
+      <div class="c-info">
+        <div class="c-row"><div class="c-dot-live"></div><span><strong>Available</strong> for new projects globally</span></div>
+        <div class="c-row"><div class="c-dot-live"></div><span><strong>Mumbai, India</strong> · Remote-first</span></div>
+        <div class="c-row"><div class="c-dot-live"></div><span>Open to <strong>speaking &amp; consulting</strong> engagements</span></div>
+      </div>
+    </div>
+    <div class="rv d1">
+      <div class="form-wrap" id="formWrap">
+        <div class="f-row-2">
+          <div class="f-field">
+            <label>Name</label>
+            <input type="text" placeholder="Your name" id="fn">
+          </div>
+          <div class="f-field">
+            <label>Email</label>
+            <input type="email" placeholder="you@company.com" id="fe">
+          </div>
+        </div>
+        <div class="f-field">
+          <label>Company / Brand</label>
+          <input type="text" placeholder="Who you're building">
+        </div>
+        <div class="f-field">
+          <label>What do you need?</label>
+          <select>
+            <option value="" disabled selected>Select</option>
+            <option>Brand Strategy &amp; Positioning</option>
+            <option>Content Strategy</option>
+            <option>Performance Marketing</option>
+            <option>Brand Solutions &amp; Partnerships</option>
+            <option>Full-stack Strategy</option>
+            <option>Speaking / Consulting</option>
+          </select>
+        </div>
+        <div class="f-field">
+          <label>Tell me about it</label>
+          <textarea id="fm" placeholder="What are you building, fixing, or growing?"></textarea>
+        </div>
+        <div class="f-foot">
+          <button class="f-submit mag" onclick="doSub()">Send →</button>
+          <span class="f-note">Reply within 24 hrs.</span>
+        </div>
+      </div>
+      <div class="f-success" id="fsuc">✦ &nbsp;Received. I'll be in touch soon.</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-l">Yash <em>Jajal</em></div>
+  <div class="f-r">Brand Strategist · Mumbai · © 2025</div>
+</footer>
+
+<script>
+/* ── CURSOR ── */
+const dot=document.getElementById('c-dot'),ring=document.getElementById('c-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  dot.style.left=mx+'px';dot.style.top=my+'px';
+});
+(function lr(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+ring.style.left=rx+'px';ring.style.top=ry+'px';
+requestAnimationFrame(lr)})();
+document.querySelectorAll('a,button,.svc-item,.work-item,.t-block,.so-item,.marker').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+/* ── SCROLLED NAV ── */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60));
+
+/* ── THREE.JS NETWORK ── */
+(function(){
+  const cv=document.getElementById('canvas3d');
+  const ren=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});
+  ren.setPixelRatio(Math.min(devicePixelRatio,2));
+  const W=cv.parentElement.clientWidth,H=cv.parentElement.clientHeight;
+  ren.setSize(W,H);ren.setClearColor(0,0);
+  const scene=new THREE.Scene();
+  const cam=new THREE.PerspectiveCamera(60,W/H,.1,100);
+  cam.position.z=5;
+
+  // Nodes
+  const nCount=40;
+  const nodes=[];
+  const nodeGeo=new THREE.SphereGeometry(.03,6,6);
+  for(let i=0;i<nCount;i++){
+    const m=new THREE.MeshBasicMaterial({color:0xb8976a,transparent:true,opacity:.5+Math.random()*.4});
+    const mesh=new THREE.Mesh(nodeGeo,m);
+    const spread=5;
+    mesh.position.set((Math.random()-.5)*spread*2,(Math.random()-.5)*spread,(Math.random()-.5)*spread);
+    mesh.userData={ox:mesh.position.x,oy:mesh.position.y,oz:mesh.position.z,
+      spd:(.3+Math.random()*.4)*(Math.random()>.5?1:-1),
+      amp:.12+Math.random()*.18,phase:Math.random()*Math.PI*2};
+    scene.add(mesh);nodes.push(mesh);
+  }
+
+  // Edges
+  const lineMat=new THREE.LineBasicMaterial({color:0xb8976a,transparent:true,opacity:.08});
+  const lines=[];
+  const threshold=2.2;
+  for(let i=0;i<nCount;i++)for(let j=i+1;j<nCount;j++){
+    const d=nodes[i].position.distanceTo(nodes[j].position);
+    if(d<threshold){
+      const g=new THREE.BufferGeometry().setFromPoints([nodes[i].position,nodes[j].position]);
+      const l=new THREE.Line(g,lineMat.clone());
+      scene.add(l);lines.push({l,i,j});
+    }
+  }
+
+  // Central wireframe — subtle torus
+  const tg=new THREE.TorusGeometry(1.2,.004,6,80);
+  const tm=new THREE.MeshBasicMaterial({color:0xb8976a,transparent:true,opacity:.06,wireframe:true});
+  const tor=new THREE.Mesh(tg,tm);
+  scene.add(tor);
+
+  let tmx=0,tmy=0,cmx=0,cmy=0;
+  document.addEventListener('mousemove',e=>{tmx=(e.clientX/innerWidth-.5)*1.2;tmy=(e.clientY/innerHeight-.5)*.8});
+
+  let t=0;
+  function anim(){
+    requestAnimationFrame(anim);t+=.008;
+    cmx+=(tmx-cmx)*.025;cmy+=(tmy-cmy)*.025;
+    nodes.forEach(n=>{
+      const u=n.userData;
+      n.position.y=u.oy+Math.sin(t*u.spd+u.phase)*u.amp;
+      n.position.x=u.ox+Math.cos(t*u.spd*.7+u.phase)*u.amp*.5;
+    });
+    lines.forEach(({l,i,j})=>{
+      const pts=[nodes[i].position.clone(),nodes[j].position.clone()];
+      l.geometry.setFromPoints(pts);l.geometry.attributes.position.needsUpdate=true;
+      const d=nodes[i].position.distanceTo(nodes[j].position);
+      l.material.opacity=Math.max(0,(threshold-d)/threshold*.1+.02);
+    });
+    tor.rotation.y=t*.15+cmx*.3;
+    tor.rotation.x=t*.08+cmy*.2;
+    scene.rotation.y=cmx*.15;
+    scene.rotation.x=cmy*.1;
+    ren.render(scene,cam);
+  }
+  anim();
+  window.addEventListener('resize',()=>{
+    const W2=cv.parentElement.clientWidth,H2=cv.parentElement.clientHeight;
+    ren.setSize(W2,H2);cam.aspect=W2/H2;cam.updateProjectionMatrix();
+  });
+})();
+
+/* ── TEXT SCRAMBLE ── */
+(function(){
+  const el=document.getElementById('h1main');
+  const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ#@!?';
+  const orig=el.innerHTML;
+  const plain=el.textContent;
+  let iter=0;
+  function run(){
+    el.innerHTML=orig.replace(/[A-Za-z]/g,(ch,i)=>{
+      if(i<iter)return ch;
+      return chars[Math.floor(Math.random()*chars.length)];
+    });
+    iter+=1.8;
+    if(iter<plain.length)setTimeout(run,22);
+    else el.innerHTML=orig;
+  }
+  setTimeout(run,300);
+})();
+
+/* ── MAGNETIC ── */
+document.querySelectorAll('.mag').forEach(b=>{
+  b.addEventListener('mousemove',e=>{
+    const r=b.getBoundingClientRect();
+    const x=(e.clientX-r.left-r.width/2)*.22;
+    const y=(e.clientY-r.top-r.height/2)*.22;
+    b.style.transform=`translate(${x}px,${y}px)`;
+    b.style.transition='transform .1s ease-out';
+  });
+  b.addEventListener('mouseleave',()=>{
+    b.style.transform='translate(0,0)';
+    b.style.transition='transform .5s ease';
+  });
+});
+
+/* ── REVEAL ── */
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('in')}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(e=>obs.observe(e));
+
+/* ── FORM ── */
+function doSub(){
+  const n=document.getElementById('fn').value.trim();
+  const e=document.getElementById('fe').value.trim();
+  const m=document.getElementById('fm').value.trim();
+  if(!n||!e||!m){alert('Please fill name, email, and your brief.');return;}
+  document.getElementById('formWrap').style.display='none';
+  document.getElementById('fsuc').style.display='block';
+}
+</script>
+</body>
+</html>
